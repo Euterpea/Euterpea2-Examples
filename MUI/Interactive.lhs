@@ -23,7 +23,7 @@ A Euterpea/HSoM port of a JythonMusic program I wrote a couple years back.
 >     tick <- timer -< rate
 >     mi <- midiIn -< mIn
 >     rec lastPlay <- delay False -< playOut -- to catch T-F edge and turn notes off when it happens
->         lastP <- delay 60 -< nextP -- for correct ordering of on-off messages
+>         lastP <- delay 60 -< if tick/=Nothing then nextP else lastP -- for correct ordering of on-off messages
 >         (pBuffer, vBuffer) <- delay ([],[]) -< procBuffer (pBuffer, vBuffer) bSize mi
 >         title "Pitches" $ display -< pBuffer
 >         title "Volumes" $ display -< vBuffer
